@@ -3,7 +3,7 @@
    <application
         android:label="recipecalculator"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/recipe">
         <activity
             android:name=".MainActivity"
             android:exported="true"
