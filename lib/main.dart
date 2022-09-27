@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipecalculator/recipe.dart';
+import 'package:recipecalculator/models/recipe.dart';
+import 'package:recipecalculator/recipe_detail.dart';
 
 void main() {
   runApp(const RecipeApp());
@@ -47,12 +48,43 @@ class _MyHomePageState extends State<MyHomePage> {
           itemCount: Recipe
               .samples.length, //determines the number of rows the list has
           itemBuilder: (BuildContext context, int index) {
-            //todo : update to return recipe card
-            return Text(Recipe.samples[index].label);
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return RecipeDetail(recipe: Recipe.samples[index]);
+                }));
+              },
+              child: buildRecipeCard(Recipe.samples[index]),
+            );
           },
         ),
       ),
     );
   }
-  //todo : add buildrecipecard() here
+
+// add buildrecipecard() here
+  Widget buildRecipeCard(Recipe recipe) {
+    return Card(
+        elevation: 2.0,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              Image(image: AssetImage(recipe.imageUrl)),
+              const SizedBox(
+                height: 14.0,
+              ),
+              Text(
+                recipe.label,
+                style: const TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Palatino'),
+              )
+            ],
+          ),
+        ));
+  }
 }
